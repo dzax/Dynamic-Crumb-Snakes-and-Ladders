@@ -16,7 +16,7 @@ var SnL [N] SnLzzz
 
 func main(){
     var game, playerName string
-    var position int
+    var position, scores, sumScores int
     theSnL := 0
     position = 0
     playerName = startGame()
@@ -28,7 +28,14 @@ func main(){
 
     fmt.Scanln(&game)
     for game !="QUIT"{
-        playerPosition(playerName, &position, &game)
+        playerPosition(sumScores, playerName, &position, &game)
+        scores = crumb(position)
+        sumScores = sumScores + scores
+        for position!=100 {
+            fmt.Println("Your scores is now", sumScores)
+            fmt.Println()
+            break
+        }
     }
 }
 
@@ -45,7 +52,11 @@ func startSnL() {
     fmt.Println("Snakes :")
 	snakes()
 	fmt.Println("\nLadders :")
-	ladders()
+    ladders()
+    fmt.Println()
+    fmt.Println("GAME INSTRUCTIONS :")
+    fmt.Println("Press ENTER to Play")
+    fmt.Println("Type 'QUIT' to Exit")
 }
 
 func dice() int{
@@ -53,7 +64,7 @@ func dice() int{
     return rand.Intn(6) + 1
 }
 
-func playerPosition(playerName string, position *int, game *string){
+func playerPosition(sumScores int, playerName string, position *int, game *string){
     var temp, rolled int
     rolled = dice()
 
@@ -65,10 +76,12 @@ func playerPosition(playerName string, position *int, game *string){
             *position = 100 - temp
         }
         SnL[*position].position = *position
-		*position = checkSnL(*position, playerName)
-        fmt.Println(playerName, "is now in square number", *position)
+        *position = checkSnL(*position, playerName)
+        fmt.Print(playerName, " is now in square number ", *position)
+
         if *position == 100 {
             fmt.Println("\nCongratulations", playerName, ", You have won this game!")
+            fmt.Println("Your total scores is", sumScores)
             *game = "QUIT"
         } else {
             fmt.Scanln(game)
@@ -159,8 +172,13 @@ func checkSnL(position int, playerName string) int {
     return position
 }
 
-func crumb () int{
-    if dice()!=100{
-        
-    }
+func crumb(position int) int{
+    var chance, points int
+        rand.Seed(time.Now().UnixNano())
+        chance = rand.Intn(100) + 1
+        if chance <= 20 {
+            points = rand.Intn(10) + 1
+            fmt.Println("Congratulations you got", points, "points")
+        }
+    return points
 }
