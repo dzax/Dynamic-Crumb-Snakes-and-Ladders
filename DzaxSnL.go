@@ -29,10 +29,10 @@ func main(){
     fmt.Scanln(&game)
     for game !="QUIT"{
         playerPosition(sumScores, playerName, &position, &game)
-        scores = crumb(position)
+        scores = crumb(position, playerName)
         sumScores = sumScores + scores
         for position!=100 {
-            fmt.Println("Your scores is now", sumScores)
+            fmt.Print(playerName,"'s scores is now ", sumScores, "\n")
             fmt.Println()
             break
         }
@@ -161,24 +161,24 @@ func ladders(){
 
 func checkSnL(position int, playerName string) int {
     if SnL[position].position == SnL[position].bottomLadder {
-        fmt.Print(playerName, " - You found a ladder at ", position, " You can climb to ", SnL[position].topLadder)
+        fmt.Print(playerName, " - You found a ladder at ", position, ", You can climb to ", SnL[position].topLadder)
         fmt.Println()
         position = SnL[position].topLadder
     } else if SnL[position].position == SnL[position].snakeHead {
-        fmt.Print(playerName, " - You found a snake at ", position, " You go back to ", SnL[position].snakeTail)
+        fmt.Print(playerName, " - You found a snake at ", position, ", You go back to ", SnL[position].snakeTail)
         fmt.Println()
         position = SnL[position].snakeTail
     }
     return position
 }
 
-func crumb(position int) int{
+func crumb(position int, playerName string) int{
     var chance, points int
         rand.Seed(time.Now().UnixNano())
         chance = rand.Intn(100) + 1
         if chance <= 20 {
             points = rand.Intn(10) + 1
-            fmt.Println("Congratulations you got", points, "points")
+            fmt.Print("Congratulations! ", playerName, " got ", points, " points\n")
         }
     return points
 }
