@@ -29,9 +29,9 @@ func main(){
     fmt.Scanln(&game)
     for game !="QUIT"{
         playerPosition(sumScores, playerName, &position, &game)
-        scores = crumb(position, playerName)
-        sumScores = sumScores + scores
         for position!=100 {
+            scores = crumb(position, playerName)
+            sumScores = sumScores + scores
             fmt.Print(playerName,"'s scores is now ", sumScores, "\n")
             fmt.Println()
             break
