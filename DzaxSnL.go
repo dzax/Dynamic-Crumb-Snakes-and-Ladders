@@ -19,6 +19,8 @@ func main(){
     var position, scores, sumScores int
     theSnL := 0
     position = 0
+    scores = 0
+    sumScores = 0
     playerName = startGame()
 
     if theSnL == 0{
