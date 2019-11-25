@@ -29,7 +29,7 @@ func main(){
     }
 
     fmt.Scanln(&game)
-    for game !="QUIT"{
+    for game !="QUIT" && game!="quit" {
         playerPosition(&sumScores, &playerName, &position, &game)
         for position!=100 {
             scores = crumb(position, playerName)
@@ -86,7 +86,7 @@ func playerPosition(sumScores *int, playerName *string, position *int, game *str
             fmt.Println("Your total scores is", *sumScores)
             fmt.Println("\nType 'QUIT' to Exit, Type anything to Restart the Game")
             fmt.Scanln(game)
-            if *game!="QUIT" {
+            if *game!="QUIT" && *game!="quit"{
                 fmt.Print("Write your name : ")
                 fmt.Scanln(playerName)
                 *position = 0
@@ -187,7 +187,7 @@ func crumb(position int, playerName string) int{
         chance = rand.Intn(100) + 1
         if chance <= 20 {
             points = rand.Intn(10) + 1
-            fmt.Print("Congratulations you hit a Crumb! ", playerName, " got ", points, " points\n")
+            fmt.Print("Congratulations! ", playerName, " hit a Crumb! ", playerName, " got ", points, " points\n")
         }
     return points
 }
