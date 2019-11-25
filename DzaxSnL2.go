@@ -34,7 +34,9 @@ func main(){
         for position!=100 {
             scores = crumb(position, playerName)
             sumScores = sumScores + scores
-            fmt.Print(playerName,"'s scores is now ", sumScores, "\n")
+            fmt.Print(playerName,"'s scores is now : ", sumScores, "\n")
+            fmt.Println()
+            fmt.Println("-----------------------------------------------------------------")
             fmt.Println()
             break
         }
@@ -71,7 +73,7 @@ func playerPosition(sumScores *int, playerName *string, position *int, game *str
     rolled = dice()
 
     if *position < 100 {
-        fmt.Println(*playerName, "Rolled", rolled)
+        fmt.Println(*playerName, "rolled [", rolled, "]")
         *position = *position + rolled
         if *position > 100 {
             temp = *position - 100
@@ -79,11 +81,11 @@ func playerPosition(sumScores *int, playerName *string, position *int, game *str
         }
         SnL[*position].position = *position
         *position = checkSnL(*position, *playerName)
-        fmt.Print(*playerName, " is now in square number ", *position)
+        fmt.Print(*playerName, " is now in square number [", *position, "]")
 
         if *position == 100 {
             fmt.Println("\nCongratulations", *playerName, ", You have won this game!")
-            fmt.Println("Your total scores is", *sumScores)
+            fmt.Println(*playerName, "total scores is :", *sumScores)
             fmt.Println("\nType 'QUIT' to Exit, Type anything to Restart the Game")
             fmt.Scanln(game)
             if *game!="QUIT" && *game!="quit"{
@@ -170,11 +172,11 @@ func ladders(){
 
 func checkSnL(position int, playerName string) int {
     if SnL[position].position == SnL[position].bottomLadder {
-        fmt.Print(playerName, " - You found a ladder at ", position, ", You can climb to ", SnL[position].topLadder)
+        fmt.Print(playerName, " found a ladder at [", position, "] ", playerName, " can climb to [", SnL[position].topLadder,"]")
         fmt.Println()
         position = SnL[position].topLadder
     } else if SnL[position].position == SnL[position].snakeHead {
-        fmt.Print(playerName, " - You found a snake at ", position, ", You go back to ", SnL[position].snakeTail)
+        fmt.Print(playerName, " found a snake at [", position, "] ", playerName, " go back to [", SnL[position].snakeTail, "]")
         fmt.Println()
         position = SnL[position].snakeTail
     }
@@ -187,7 +189,7 @@ func crumb(position int, playerName string) int{
         chance = rand.Intn(100) + 1
         if chance <= 20 {
             points = rand.Intn(10) + 1
-            fmt.Print("Congratulations! ", playerName, " hit a Crumb! ", playerName, " got ", points, " points\n")
+            fmt.Print("Congratulations! ", playerName, " hit a Crumb! ", playerName, " got ", points, " points. \n")
         }
     return points
 }
